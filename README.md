@@ -22,7 +22,7 @@ result = requests.post(
     }
 ).json()
 
-assert result["code"] == 200
+
 ```
 
 3. Login kumo account to get token:
@@ -43,11 +43,33 @@ assert result["code"] == 200
 token = result["data"]["token"]
 ```
 
-> TODO
+4. Deploy
+
+```python
+import requests
+
+result = requests.post(
+    "http://127.0.0.1/instance/create/git",
+    json={
+        "repo_link": "https://github.com/Yazawazi/kumo-develop-example",
+        "name": "kumo-application",
+        "entry_point": "main.py",
+    },
+    headers={
+        "Authorization": f"Bearer {token}"
+    }
+)
+
+assert result["code"] == 200
+```
 
 ### From CLI
 
-> TODO
+```bash
+tengoku user register USERNAME
+tengoku user login USERNAME
+tengoku instance git https://github.com/Yazawazi/kumo-develop-example kumoapp-test
+```
 
 ### From Web
 
